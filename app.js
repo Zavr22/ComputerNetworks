@@ -10,24 +10,17 @@ app.post('/app', jsonParser, function (request, response) {
     const obj = JSON.parse(JSON.stringify(request.body));
     let string = obj.str
     const len = string.length;
-    let pal = true;
-    // Use for loop to divide the words into 2 half
-    for (let i = 0; i < len / 2; i++) {
-
-        // validate the first and last characters are same
-        if (string[i] !== string[len - 1 - i]) {
-
-            pal=false
-        }
-
+    let s1;
+    let s2;
+    if (len%4 == 0){
+        s1 = string.slice(0, len/2)
+        s2 = string.slice(len/2)
     }
-if (pal === true){
-        response.json("palindrome")
-    }
-    else {
-        response.json("not palindrome")
-    console.log("kkk")
-    }
+
+    let s3 = s2.concat(s1)
+    console.log(s3)
+    response.send(s3)
+
 
 })
 
