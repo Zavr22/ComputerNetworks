@@ -1,7 +1,18 @@
 {
   "name": "lab1",
   "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
   "devDependencies": {
-    "express": "^4.18.2"
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "sequelize": "^6.28.0"
+  },
+  "dependencies": {
+    "mysql2": "^3.1.2",
+    "nodemon": "^2.0.20"
   }
 }

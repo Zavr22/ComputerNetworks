@@ -1,35 +1,38 @@
-const express = require('express')
-const {json} = require("express");
-
-const app = express()
-const jsonParser = express.json();
-app.use(express.static(__dirname + '/public'))
-
-app.post('/app', jsonParser, function (request, response) {
-    console.log(request.body)
-    const obj = JSON.parse(JSON.stringify(request.body));
-    let string = obj.str
-    const len = string.length;
-    let s1;
-    let s2;
-    if (len%4 == 0){
-        s1 = string.slice(0, len/2)
-        s2 = string.slice(len/2)
-    }
-
-    let s3 = s2.concat(s1)
-    console.log(s3)
-    response.send(s3)
+import express from "express";
+import PORT from "./env.js";
+import sequelize from './utils/database.js';
+import router from './routes/routes.js';
+import cors from 'cors';
 
 
-})
+const app = express();
 
-    app.use('/', function (request, response) {
-    response.send('<h1>Главная страница</h1>')
-})
+const corsOptions ={
+    origin:'*',
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200,
+}
 
-app.listen(3000)
+app.use(cors(corsOptions)) // Use this after the variable declaration
+
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.json());
+
+app.use((_, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+});
+
+app.use(router);
 
 
+sequelize.sync({force:false}).then(()=>{
+    console.log("Tables have been created");
+    // createConnection(true)
+}).catch(err=>console.log(err));
 
 
+app.listen(PORT);
