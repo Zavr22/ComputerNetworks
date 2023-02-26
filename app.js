@@ -1,7 +1,9 @@
 import express from "express";
 import PORT from "./env.js";
 import sequelize from './utils/database.js';
+
 import router from './routes/routes.js';
+ // Use this after the variable declaration
 import cors from 'cors';
 
 
@@ -26,8 +28,11 @@ app.use((_, res, next) => {
     next();
 });
 
-app.use(router);
+app.use(express.json());
 
+
+
+app.use(router);
 
 sequelize.sync({force:false}).then(()=>{
     console.log("Tables have been created");
@@ -36,3 +41,4 @@ sequelize.sync({force:false}).then(()=>{
 
 
 app.listen(PORT);
+

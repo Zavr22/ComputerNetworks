@@ -2,37 +2,26 @@ import {Sequelize} from "sequelize";
 import sequelize from '../utils/database.js';
 
 
-const Books = sequelize.define('books', {
+const Matrix = sequelize.define('matrix', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    regNumber: {
+    rawNum: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    author: {
+    colNum: {
         type: Sequelize.STRING
     },
-    name: {
+    value: {
         type: Sequelize.STRING,
         allowNull: false,
     },
-    year: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-    publisher: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    pagesAmount: {
-        type: Sequelize.INTEGER,
-        allowNull: null
-    }
+
 
 });
 
-export default Books
+export default Matrix

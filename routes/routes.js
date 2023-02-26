@@ -1,15 +1,22 @@
 import express from 'express';
 
 
-import {findBookByAuthor} from "../controllers/handler.js";
+import {delEl, insertMatrixEl, outMatrix, outMatrixPartly, updateElement} from "../controllers/handler.js";
 
 
 const router = express.Router();
 
 
 
-router.post('/getBook', findBookByAuthor)
+router.post('/getMatrix', outMatrix)
 
+router.get("/create", insertMatrixEl)
+
+router.post("/update", updateElement)
+
+router.post("/delete", delEl)
+
+router.post('/getMatrixP', outMatrixPartly)
 
 
 // will match any other path
